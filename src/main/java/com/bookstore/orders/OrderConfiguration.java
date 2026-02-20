@@ -6,5 +6,6 @@ import org.springframework.modulith.ApplicationModule;
     displayName = "Orders",
     allowedDependencies = {}
 )
+@SuppressWarnings("unused")
 public class OrderConfiguration {
 }
