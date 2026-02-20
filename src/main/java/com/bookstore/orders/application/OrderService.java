@@ -25,10 +25,6 @@ public class OrderService {
         // Create and save order
         Order order = new Order(UUID.randomUUID(), bookId, quantity);
         orderRepository.save(order);
-
-        // Decrease stock in inventory
-        eventPublisher.publishEvent(new OrderPlacedEvent(order.getId(), bookId, quantity));
-
         return order.getId();
     }
 }

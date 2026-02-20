@@ -1,8 +1,14 @@
 package com.bookstore.orders.domain;
 
+import com.bookstore.orders.events.OrderPlacedEvent;
 import jakarta.persistence.*;
 import lombok.Getter;
+import org.springframework.data.domain.DomainEvents;
+import org.springframework.data.domain.AfterDomainEventPublication;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -19,6 +25,10 @@ public class Order {
     @Column(nullable = false)
     private OrderStatus status;
 
+    //Add Modular Domain Events
+    @Transient
+    private final List<Object> domainEvents = new ArrayList<>();
+
     protected Order() {
         // JPA requires a default constructor
     }
@@ -28,6 +38,18 @@ public class Order {
         this.bookId = bookId;
         this.quantity = quantity;
         this.status = OrderStatus.CREATED;
+
+        domainEvents.add(new OrderPlacedEvent(id,bookId,quantity));
+    }
+
+    @DomainEvents
+    public Collection<Object> domainEvents(){
+        return domainEvents;
+    }
+
+    @AfterDomainEventPublication
+    public void clearEvents(){
+        domainEvents.clear();
     }
 
     public void confirm() {

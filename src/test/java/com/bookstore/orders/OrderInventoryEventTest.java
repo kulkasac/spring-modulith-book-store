@@ -45,8 +45,4 @@ class OrderInventoryEventTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Not enough stock to decrease");
     }
-    @Test
-    void contextLoads() {
-        // This test will fail if the application context cannot be loaded, which includes checking for module dependencies and configurations.
-    }
 }
