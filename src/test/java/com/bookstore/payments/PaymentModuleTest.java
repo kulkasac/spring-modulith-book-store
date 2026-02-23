@@ -27,7 +27,7 @@ public class PaymentModuleTest {
 
     @Test
     void successfulOrderCreatesCompletedPayment(){
-        var bookId = inventoryService.addBook("1234567890", "Test Book", 10);
+        var bookId = inventoryService.addBook("123-4567-890", "Test Book", 10);
         var orderId = orderService.placeOrder(bookId, 2);
 
         var payments = paymentRepository.findAll();
