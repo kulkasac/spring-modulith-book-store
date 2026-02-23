@@ -7,6 +7,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -26,5 +28,13 @@ public class OrderService {
         Order order = new Order(UUID.randomUUID(), bookId, quantity);
         orderRepository.save(order);
         return order.getId();
+    }
+
+    public List<Order> getAllOrders(){
+        return orderRepository.findAll();
+    }
+
+    public Optional<Order> getOrder(UUID orderId){
+        return orderRepository.findById(orderId);
     }
 }

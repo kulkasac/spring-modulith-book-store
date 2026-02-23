@@ -3,9 +3,10 @@ package com.bookstore.inventory.application;
 import com.bookstore.inventory.domain.Book;
 import com.bookstore.inventory.domain.BookRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.modulith.NamedInterface;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -36,4 +37,11 @@ public class InventoryService {
         book.decreaseStock(quantity);
     }
 
+    public List<Book> getAllBooks() {
+        return bookRepository.findAll();
+    }
+
+    public Optional<Book> getBook(UUID bookId) {
+        return bookRepository.findById(bookId);
+    }
 }

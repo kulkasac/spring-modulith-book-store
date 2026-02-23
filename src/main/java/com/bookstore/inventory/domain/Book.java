@@ -16,8 +16,10 @@ public class Book {
     @Getter
     @Id
     private UUID id;
+    @Getter
     @Column(nullable = false, unique = true)
     private String isbn;
+    @Getter
     @Column(nullable = false)
     private String title;
     @Getter

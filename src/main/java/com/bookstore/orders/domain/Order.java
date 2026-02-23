@@ -17,10 +17,13 @@ public class Order {
     @Getter
     @Id
     private UUID id;
+    @Getter
     @Column(nullable = false)
     private UUID bookId;
+    @Getter
     @Column(nullable = false)
     private int quantity;
+    @Getter
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private OrderStatus status;
