@@ -16,10 +16,12 @@ import java.util.UUID;
 public class PaymentService {
     private final PaymentRepository paymentRepository;
     private final ApplicationEventPublisher eventPublisher;
+    private final PaymentMetrics paymentMetrics;
 
-    public PaymentService(PaymentRepository paymentRepository, ApplicationEventPublisher eventPublisher) {
+    public PaymentService(PaymentRepository paymentRepository, ApplicationEventPublisher eventPublisher, PaymentMetrics paymentMetrics) {
         this.paymentRepository = paymentRepository;
         this.eventPublisher = eventPublisher;
+        this.paymentMetrics = paymentMetrics;
     }
 
     public void processPayment(UUID orderId , UUID bookId, int quantity) {
@@ -27,8 +29,10 @@ public class PaymentService {
         try{
             simulatePaymentGateWay(orderId);
             payment.complete();
+            paymentMetrics.recordPaymentCompleted();
         } catch (Exception e) {
             payment.fail();
+            paymentMetrics.recordPaymentFailed();
             eventPublisher.publishEvent(new PaymentFailedEvent(payment.getId(), orderId, e.getMessage()));
         }
         paymentRepository.save(payment);
