@@ -16,7 +16,8 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderMetrics orderMetrics;
 
-    public OrderService(OrderRepository orderRepository, OrderMetrics orderMetrics) {
+    public OrderService(OrderRepository orderRepository,
+                        OrderMetrics orderMetrics) {
         this.orderRepository = orderRepository;
         this.orderMetrics = orderMetrics;
     }
